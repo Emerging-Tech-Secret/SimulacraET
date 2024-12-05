@@ -54,8 +54,8 @@ def parse_args() -> Tuple[str, str, int, bool]:
     parser.add_argument(
         '--browser_path',
         type=str,
-        default="/usr/bin/google-chrome %s",
-        help='Browser path, default is /usr/bin/google-chrome %s'
+        default="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome %s",
+        help='Browser path, default linux is /usr/bin/google-chrome %s'
     )
     parser.add_argument(
         '--port',
@@ -235,3 +235,4 @@ if __name__ == '__main__':
     OpenAICostLoggerViz.print_total_cost(path=log_path)
     print(f"(Auto-Exec): Execution time: {datetime.now() - start_time}")
     sys.exit(0)
+    
