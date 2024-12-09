@@ -1,198 +1,85 @@
+# SimulacraET Project Documentation Index
 
+This document serves as a central index for the project documentation.
 
-# Generative Agents: Interactive Simulacra of Human Behavior 
+## Available Documentation Files
 
-<p align="center" width="100%">
-<img src="cover.png" alt="Smallville" style="width: 80%; min-width: 300px; display: block; margin: auto;">
-</p>
+1. [Main README](README_current.md)
+   - Primary project documentation
+   - Currently empty/pending content
 
-This repository contains fixes and improvements for the repository "[generative_agents](https://github.com/joonspk-research/generative_agents)" that accompanies the paper "[Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442)."
+2. [Original README](README_origin.md)
+   - Original project documentation
+   - Currently empty/pending content
 
-Since the project is no longer officially supported, I decided to develop some new features:
-- [x] Easy configuration + **Azure support**
-- [x] **Cost tracking** using [openai-cost-logger](https://github.com/drudilorenzo/openai-cost-logger)
-- [x] Set **cost upperbound** and stop the experiment when it is reached
-- [x] New models and OpenAI API support
-- [x] Added [skip-morning-s-14](https://github.com/drudilorenzo/generative_agents/tree/fix-and-improve/environment/frontend_server/storage/skip-morning-s-14): a simulation based on `base_the_ville_n25` that starts after 3000 steps (~8:00am). That permits us to save time and see interactions and actions earlier. (Note that one must use the same embedding model to load this simulation)
-- [x] **Zoom in**/**Zoom out** using Z and X
-- [x] [Powerful automated script](#step-3-automatic-execution) for enhanced simulation performance.
+## Documentation Structure
 
-_______________________________________
-## Index:
-1. [Setup](#setting-up-the-environment)
-2. [Execution](#running-a-simulation)
-3. [Cost-Tracking](#cost-tracking)
-_______________________________________
+The project documentation is split across multiple files to maintain better organization. Each README file serves a specific purpose:
 
-## Setting Up The Environment
+- `README_current.md`: Main project documentation containing current implementation details, setup instructions, and usage guidelines
+- `README_origin.md`: Original project documentation containing historical information and original project specifications
 
-### Step 1. Conda Env
+## Main README Topics (README_current.md)
 
-Do not change the env name to be able to use the bash scripts later.
-```bash
-    conda create -n simulacra python=3.9.12 pip
-    conda activate simulacra
-    pip install -r requirements.txt
-```
+The main README should cover:
 
+1. Project Overview
+   - Description of SimulacraET
+   - Project Goals and Objectives
+   - Key Features
 
-### Step 2. OpenAI Config
+2. Technical Setup
+   - Installation Instructions
+   - Dependencies (from requirements.txt)
+   - Environment Setup
 
-Create a file called `llm_config.json` in the root directory.\
-Azure example:
-```json
-{
-    "client": "azure", 
-    "model": "gpt-35-turbo-0125",
-    "model-key": "<MODEL-KEY>",
-    "model-endpoint": "<MODEL-ENDPOINT>",
-    "model-api-version": "<API-VERSION>",
-    "model-costs": {
-        "input":  0.5,
-        "output": 1.5
-    },
-    "embeddings-client": "azure",
-    "embeddings": "text-embedding-3-small",
-    "embeddings-key": "<EMBEDDING-KEY>",
-    "embeddings-endpoint": "<EMBEDDING-MODEL-ENDPOINT>",
-    "embeddings-api-version": "<API-VERSION>",
-    "embeddings-costs": {
-        "input": 0.02,
-        "output": 0.0
-    },
-    "experiment-name": "simulacra-test",
-    "cost-upperbound": 10
-}
-```
-OpenAI example:
-```json
-{
-    "client": "openai", 
-    "model": "gpt-3.5-turbo-0125",
-    "model-key": "<MODEL-KEY>",
-    "model-costs": {
-        "input":  0.5,
-        "output": 1.5
-    },
-    "embeddings-client": "openai",
-    "embeddings": "text-embedding-3-small",
-    "embeddings-key": "<EMBEDDING-KEY>",
-    "embeddings-costs": {
-        "input": 0.02,
-        "output": 0.0
-    },
-    "experiment-name": "simulacra-test",
-    "cost-upperbound": 10
-}
-```
-Ollama example:
-```json
-{
-    "client": "ollama", 
-    "base_url": "http://localhost:11434/v1",
-    "model": "llama3-chatqa:8b",
-    "prompt_template": "prompts_llama3",
-    "model-key": "dummy_key_needed_but_not_used",
-    "model-costs": {
-        "input":  0.001,
-        "output": 0.001
-    },
-    "embeddings-client": "ollama",
-    "embeddings": "nomic-embed-text",
-    "embeddings-key": "dummy_key_needed_but_not_used",
-    "embeddings-costs": {
-        "input":  0.0001,
-        "output": 0.0001
-    },
-    "experiment-name": "simulacra-test-ollama",
-    "cost-upperbound": 10000000000000
-}
-```
+3. Project Structure
+   - Backend Server (reverie/)
+   - Frontend Components
+   - Election System
+   - Environment Configuration
 
-Feel free to change and test also other models (and change accordingly the input and output costs).\
-Be aware that the only fully-supported clients are **azure** and **openai**.\
-The ollama client supports local models, but many of the prompts do not full work with local models yet.
-Make sure to first install ollama, and to pull any models you plan on using, see "[ollama-openai-compatibility](https://ollama.com/blog/openai-compatibility)"\
-The generation and the embedding models are configured separately to be able to use different clients.\
-The llama3 models require different prompts than the chatgpt, and these different prompts are specified via the template_dir argument.
-If you are testing a new model you can use either the prompts_chagpt or the prompts_llama3 as starting points.
-Change also the `cost-upperbound` according to your needs (the cost computation is done using "[openai-cost-logger](https://github.com/drudilorenzo/openai-cost-logger)" and the costs are specified per million tokens).
+4. Usage Guide
+   - Running the Backend (`run_backend.sh`, `run_backend_automatic.sh`)
+   - Running the Frontend (`run_frontend.sh`)
+   - Configuration Files (llm_config.json, openai_config.json)
 
+5. Development
+   - Project Architecture
+   - Contributing Guidelines
+   - Testing Procedures
 
-## Running a simulation
+## Original README Topics (README_origin.md)
 
-> All the following scripts automatically activate a conda environment called `simulacra` using a conda installation at the following path: `/home/${USER}/anaconda3/bin/activate`.\
-> You may want to change this line in case you are using a different conda installation/conda environment.
+The original README should cover:
 
-### Step 1. Starting the Environment Server
-```bash
-    ./run_frontend.sh <PORT-NUMBER>
-```
- >Note: omit the port number to use the default 8000.
+1. Project Foundation
+   - Original Project Vision
+   - Initial Architecture Design
+   - Core Concepts
 
-### Step 2. Starting the Simulation Server
-```bash
-    ./run_backend.sh <ORIGIN> <TARGET>
-```
-Example:
-```bash
-    ./run_backend.sh base_the_ville_isabella_maria_klaus simulation-test
-```
+2. Historical Documentation
+   - Project Evolution
+   - Major Milestones
+   - Design Decisions
 
-### Step 3. Automatic Execution
-The following script offer a range of enhanced features:
-- `Automatic Saving`: The simulation automatically saves progress every 200 steps, ensuring you never lose data.
-- `Error Recovery`: In the event of an error, the simulation automatically resumes by stepping back and restarting from the last successful point. This is crucial as the model relies on formatted answers, which can sometimes cause exceptions.
-- `Automatic Tab Opening`: A new browser tab will automatically open when necessary.
-- `Headless Mode`: The scripts support running simulations in Chrome's headless mode, enabling execution on a server without a UI (it needs [headless-chrome](https://developer.chrome.com/blog/headless-chrome) installed.
-- `Configurable Port Number`: You can configure the port number as needed.
+3. Reference Materials
+   - Election Setup Documentation
+   - System Components
+   - Original Implementation Details
 
-For more details, refer to: [run_backend_automatic.sh](https://github.com/drudilorenzo/generative_agents/blob/fix-and-improve/run_backend_automatic.sh) and [automatic_execution.py](https://github.com/drudilorenzo/generative_agents/blob/fix-and-improve/reverie/backend_server/automatic_execution.py).
-```bash
-    ./run_backend_automatic.sh -o <ORIGIN> -t <TARGET> -s <STEPS> --ui <True|False> -p <PORT> --browser_path <BROWSER-PATH>
-```
-Example:
-```bash
-    ./run_backend_automatic.sh -o base_the_ville_isabella_maria_klaus -t test_1 -s 4 --ui False
-```
+4. Legacy Information
+   - Initial Setup Instructions
+   - Original Dependencies
+   - Historical Usage Guidelines
 
-### Endpoint list
-- [http://localhost:8000/](http://localhost:8000/) - check if the server is running
-- [http://localhost:8000/simulator_home](http://localhost:8000/simulator_home) - watch the live simulation
-- `http://localhost:8000/replay/<simulation-name>/<starting-time-step>` - replay a simulation
+## Contributing to Documentation
 
-For a more detailed explanation see the [original readme](README_origin.md).
+When adding new documentation:
+1. Choose the appropriate README file based on the content type
+2. Update this index to reflect any major changes
+3. Maintain consistent formatting across all documentation files
 
+## Note
 
-## Cost Tracking
-
-For the cost tracking is used the package "[openai-cost-logger](https://github.com/drudilorenzo/openai-cost-logger)". Given the possible high cost of a simulation,  you can set a cost upperbound in the config file to be able to raise an exception and stop the execution when it is reached.
-
-See all the details of your expenses using the notebook "[cost_viz.ipynb](https://github.com/drudilorenzo/generative_agents/blob/main/cost_viz.ipynb)."
-
-## Cost Assessment
-
-### 1. base_the_ville_isabella_maria_klaus
-
-- **Model**: "gpt-3.5-turbo-0125"
-- **Embeddings**: "text-embedding-3-small"
-- **N. Agents**: 3
-- **Steps**: ~5000
-- **Final Cost**: ~0.31 USD
-
-### 2. base_the_ville_n25
-
-- See the simulation saved: [skip-morning-s-14](https://github.com/drudilorenzo/generative_agents/tree/fix-and-improve/environment/frontend_server/storage/skip-morning-s-14)
-- **Model**: "gpt-3.5-turbo-0125"
-- **Embeddings**: "text-embedding-3-small"
-- **N. Agents**: 25
-- **Steps**: ~3000 (until ~8 a.m.)
-- **Final Cost**: ~1.3 USD
-
-### 3. base_the_ville_n25
-
-- **Model**: "gpt-3.5-turbo-0125"
-- **Embeddings**: "text-embedding-3-small"
-- **N. Agents**: 25
-- **Steps**: ~8650 (full day)
-- **Final Cost**: ~18.5 USD
+Both README files are currently empty. Please add appropriate content to each file based on their intended purposes.
